@@ -1,0 +1,11 @@
+[Unit]
+Description=n2n-go supernode
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/supernode -p 7654 -t 5645 -bind 0.0.0.0
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

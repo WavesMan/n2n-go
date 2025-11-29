@@ -1,0 +1,11 @@
+[Unit]
+Description=n2n-go edge
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/edge -c community -k <key> -l <supernode:port> -p 7655 -bind 0.0.0.0
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
