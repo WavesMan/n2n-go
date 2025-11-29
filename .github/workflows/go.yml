@@ -38,14 +38,19 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
-          go-version: '>=1.22'
+          go-version: '=1.22'
       - name: Build
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
           GOARM: ${{ matrix.goarm }}
           CGO_ENABLED: 0
+          GO111MODULE: on
+          GOFLAGS: -mod=mod
+          GOWORK: off
+        working-directory: .
         run: |
+          go mod download
           mkdir -p dist
           EXT=""
           if [ "${GOOS}" = "windows" ]; then EXT=".exe"; fi
@@ -53,8 +58,8 @@ jobs:
           if [ "${GOARCH}" = "arm" ] && [ -n "${GOARM}" ]; then ARCH="armv${GOARM}"; fi
           SUPER="n2n-go-supernode_${GOOS}_${ARCH}${EXT}"
           EDGE="n2n-go-edge_${GOOS}_${ARCH}${EXT}"
-          go build -trimpath -ldflags="-s -w" -o "dist/${SUPER}" ./go/cmd/supernode
-          go build -trimpath -ldflags="-s -w" -o "dist/${EDGE}" ./go/cmd/edge
+          go build -trimpath -ldflags="-s -w" -o "dist/${SUPER}" ./cmd/supernode
+          go build -trimpath -ldflags="-s -w" -o "dist/${EDGE}" ./cmd/edge
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
