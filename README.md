@@ -1,5 +1,7 @@
 # n2n-go
 
+[![release](https://github.com/WavesMan/n2n-go/actions/workflows/go.yml/badge.svg)](https://github.com/WavesMan/n2n-go/actions/workflows/go.yml)
+
 n2n-go 是基于 Go 的轻量级 n2n 兼容实现，提供 supernode 与 edge 组件，支持在现代环境中快速部署虚拟二层网络，并与原生 C 版 n2n（3.x）进行数据面互通。
 
 ## 快速开始
