@@ -30,6 +30,10 @@ jobs:
           - goos: darwin
             goarch: arm64
           - goos: windows
+            goarch: amd64
+          - goos: windows
+            goarch: 386
+          - goos: windows
             goarch: arm
             goarm: '7'
           - goos: windows
