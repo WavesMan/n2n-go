@@ -3,7 +3,7 @@ package main
 import (
     crand "crypto/rand"
     "crypto/sha256"
-    "crypto/hkdf"
+    "golang.org/x/crypto/hkdf"
     "flag"
     "fmt"
     "math/rand"
@@ -292,11 +292,8 @@ func main() {
                 ccode := data[0]
                 tcode := data[1]
                 data = data[2:]
-                if tcode == wire.TransformAES || tcode == wire.TransformChaCha20 {
-                    if aead == nil { continue }
-                }
-                if ccode == wire.CompressionZstd && codec == compress.Null{} {
-                }
+                pkt.Transform = tcode
+                pkt.Compression = ccode
             } else if aead != nil {
                 nonceSize := aead.NonceSize()
                 if len(data) < nonceSize { continue }
